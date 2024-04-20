@@ -58,7 +58,7 @@ function is_firewalld_rule_configured(){
 #######################################
 # Check if a given item is present in an output
 # Arguments:
-#   1 - Output
+#   1 - Output i.e. webpage HTML obtained by curl command
 #   2 - Item
 #######################################
 function check_item(){
@@ -129,7 +129,7 @@ INSERT INTO products (Name,Price,ImageUrl) VALUES ("Laptop","100","c-1.png"),("D
 EOF
 
 sudo mysql < db-load-script.sql
-
+# loading all categories products
 mysql_db_results=$(sudo mysql -e "use ecomdb; select * from products;")
 
 if [[ $mysql_db_results == *Laptop* ]]
@@ -184,3 +184,5 @@ for item in Laptop Drone VR Watch Phone
 do
   check_item "$web_page" $item
 done
+# Here we encapsulate the webpage in "" as it contains spaces and each space is considered to seperate argument
+# This will send whole HTML as a string
